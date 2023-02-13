@@ -7,6 +7,9 @@ I have configured GitHub actions with repository secrets.
 #### Repository secrets should include:  
 * TOKEN_GITHUB variable
 
+__I used here the bearer token (Fine-grained personal access tokens granded to view private repos)__
+
+
 Also, you could modify the repository URL inside the __.github/workflows/main.yml__ file
 on the last line:
 ```
