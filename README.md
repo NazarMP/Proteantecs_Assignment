@@ -40,12 +40,6 @@ res = GithubRepository(
 The first argument in __GithubRepository__ class it's a repository URL. 
 After the actual creating an GithubRepository object you should call method format_as with one of existing formats.
 Or you could call list(GithubRepository(...).get_data()) and get the list of pydantic objects that is pretty easy to serialize.
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 
