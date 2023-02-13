@@ -19,7 +19,7 @@ class RESTClient:
         response = requests.request(
             http_method,
             url,
-            headers={'Authorization': f'token {self.api_token}',
+            headers={'Authorization': f'Bearer {self.api_token}',
                      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'}
         )
         processed_response = self.process_response(response)
