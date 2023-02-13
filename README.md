@@ -14,6 +14,10 @@ Also, you could modify the repository URL inside the __.github/workflows/main.ym
 on the last line:
 ```
 run: python github_stats.py --repo https://github.com/python/cpython --token ${{ secrets.TOKEN_GITHUB }} --format table
+
+or
+
+run: python github_stats.py -r https://github.com/python/cpython -t ${{ secrets.TOKEN_GITHUB }} -f table
 ```
 Change the __--repo__ argument with repository url you want.
 
