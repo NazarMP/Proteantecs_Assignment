@@ -19,7 +19,7 @@ class RESTClient:
         response = requests.request(
             http_method,
             url,
-            headers={'Authorization': f'token {self.api_token}',
+            headers={'Authorization': f'Bearer {self.api_token}',
                      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'}
         )
         processed_response = self.process_response(response)
@@ -92,23 +92,20 @@ class BaseFormat:
 class TableFormat(BaseFormat):
     NAME = "table"
 
-    def __init__(self, data):
-        super().__init__(data)
-        self.table = PrettyTable(['id', 'title', 'number', 'created_at',
-                                  'requested_reviewers', 'commits', 'comments'])
-        self.table.title = "Pull Requests"
-
     def represent(self):
+        table = PrettyTable(['id', 'title', 'number', 'created_at',
+                                  'requested_reviewers', 'commits', 'comments'])
+        table.title = "Pull Requests"
         for pull in self.data:
-            self.table.add_row(pull.dict().values())
-        return self.table
+            table.add_row(pull.dict().values())
+        return table
 
 
 class JSONFormat(BaseFormat):
     NAME = "json"
 
     def represent(self):
-        return json.dumps([i.json() for i in self.data])
+        return json.dumps([i.json() for i in self.data], indent=4)
 
 
 class BaseVCSObject:
@@ -143,19 +140,20 @@ class GithubRepository(BaseVCSObject):
             )
 
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-r", "--repo", help="Specify repository url")
-parser.add_argument("-t", "--token", help="Specify GitHub Token")
-parser.add_argument("-f", "--format", help="Specify format")
-args = parser.parse_args()
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--repo", help="Specify repository url")
+    parser.add_argument("-t", "--token", help="Specify GitHub Token")
+    parser.add_argument("-f", "--format", help="Specify format")
+    args = parser.parse_args()
 
-res = GithubRepository(
-    args.repo,
-    fetcher=GithubFetcher(
-        api_client=GithubRESTClient(
-            api_token=args.token
+    res = GithubRepository(
+        args.repo,
+        fetcher=GithubFetcher(
+            api_client=GithubRESTClient(
+                api_token=args.token
+            )
         )
-    )
-).format_as(args.format)
+    ).format_as(args.format)
 
-print(res)
+    print(res)

@@ -7,6 +7,9 @@ I have configured GitHub actions with repository secrets.
 #### Repository secrets should include:  
 * TOKEN_GITHUB variable
 
+__I used here the bearer token (Fine-grained personal access tokens granded to view private repos)__
+
+
 Also, you could modify the repository URL inside the __.github/workflows/main.yml__ file
 on the last line:
 ```
@@ -40,12 +43,6 @@ res = GithubRepository(
 The first argument in __GithubRepository__ class it's a repository URL. 
 After the actual creating an GithubRepository object you should call method format_as with one of existing formats.
 Or you could call list(GithubRepository(...).get_data()) and get the list of pydantic objects that is pretty easy to serialize.
-## Contributing
-
-Pull requests are welcome. For major changes, please open an issue first
-to discuss what you would like to change.
-
-Please make sure to update tests as appropriate.
 
 ## License
 
